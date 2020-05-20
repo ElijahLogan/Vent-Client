@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
-
+import { useHistory } from "react-router-dom";
 import { useAppContext } from "../libs/contextLib";
 import { Auth } from "aws-amplify";
 import "./Login.css";
 
 export default function Login() {
+  
+  const history = useHistory()
   
   const { userHasAuthenticated } = useAppContext();
   
@@ -22,6 +24,7 @@ export default function Login() {
     try{
       await Auth.signIn(email, password);
      userHasAuthenticated(true);
+     history.push('/')
     } catch (e) {
       alert(e.message);
     }

@@ -3,7 +3,7 @@ import { Nav, Navbar, NavItem} from "react-bootstrap";
 import { AppContext } from "./libs/contextLib";
 import {  LinkContainer } from "react-router-bootstrap";
 
-
+import { Auth } from "aws-amplify";
 import React, { useState } from "react";
 import Routes from "./Routes";
 import "./App.css";
@@ -14,7 +14,9 @@ function App() {
   const [isAuthenticated, userHasAuthenticated] = useState(false)
 
 
-function handleLogout(){
+async function handleLogout(){
+  await Auth.signOut()
+  
   userHasAuthenticated(false)
 }
 
