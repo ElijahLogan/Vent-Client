@@ -4,6 +4,9 @@ import { FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 import config from "../config";
 import "./NewNote.css";
 
+import { API } from "aws-amplify";
+
+
 export default function NewNote() {
   const file = useRef(null);
   const history = useHistory();
@@ -18,11 +21,24 @@ export default function NewNote() {
     file.current = event.target.files[0];
   }
 
-  async function handleSubmit(event) {
-    event.preventDefault();
+async function handleSubmit(event) {
+  event.preventDefault();
 
-
+  
+  try {
+    await createNote({ content });
+    history.push("/");
+  } catch (e) {
+      alert(e)
+      console.log(e)
   }
+}
+
+function createNote(note) {
+  return API.post("notes", "/notes", {
+    body: note
+  });
+}
 
   return (
     <div className="NewNote">
