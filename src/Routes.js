@@ -17,9 +17,9 @@ return (
   <UnauthenticatedRoute exact path="/signup">
     <Signup />
   </UnauthenticatedRoute>
-  <unauthenticatedRoute exact path="/notes/new">
+  <AuthenticatedRoute exact path="/new-note">
     <NewNote />
-  </unauthenticatedRoute>
+  </AuthenticatedRoute>
  
 </Switch>
 );

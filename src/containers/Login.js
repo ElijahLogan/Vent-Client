@@ -27,7 +27,7 @@ export default function Login() {
     try {
       await Auth.signIn(fields.email, fields.password);
       userHasAuthenticated(true);
-      history.push("/notes/new");
+      history.push("/new-note");
     } catch (e) {
       alert(e);
       setIsLoading(false);

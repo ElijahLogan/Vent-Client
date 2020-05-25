@@ -1,10 +1,11 @@
+import { API } from "aws-amplify";
 import React, { useRef, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 import config from "../config";
 import "./NewNote.css";
 
-import { API } from "aws-amplify";
+
 
 
 export default function NewNote() {
@@ -12,6 +13,8 @@ export default function NewNote() {
   const history = useHistory();
   const [content, setContent] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  
+  
 
   function validateForm() {
     return content.length > 0;
@@ -20,6 +23,8 @@ export default function NewNote() {
   function handleFileChange(event) {
     file.current = event.target.files[0];
   }
+  
+  
 
 async function handleSubmit(event) {
   event.preventDefault();
@@ -35,14 +40,14 @@ async function handleSubmit(event) {
 }
 
 function createNote(note) {
-  return API.post("notes", "/notes", {
+  return API.post("notes", "/create", {
     body: note
   });
 }
 
   return (
     <div className="NewNote">
-      <form onSubmit={handleSubmit}>
+      <form >
         <FormGroup controlId="content">
           <FormControl
             value={content}
@@ -53,8 +58,8 @@ function createNote(note) {
         <button
           block
           type="submit"
-          bsSize="large"
-          onClick={!validateForm()}
+         
+          onClick={handleSubmit}
         >
           Create
         </button>
