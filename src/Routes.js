@@ -20,9 +20,9 @@ return (
   <AuthenticatedRoute exact path="/new-note">
     <NewNote />
   </AuthenticatedRoute>
-  <AuthenticatedRoute exact path="/">
+  <Route exact path="/">
     <Home />
-  </AuthenticatedRoute>
+  </Route>
 </Switch>
 );
 }
