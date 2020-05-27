@@ -82,7 +82,7 @@ export default function Signup() {
         <button
           type="submit"
        
-onClick={!validateConfirmationForm()}
+onClick={validateConfirmationForm()}
         >
           Verify
         </button>
