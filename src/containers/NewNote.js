@@ -32,7 +32,7 @@ async function handleSubmit(event) {
   
   try {
     await createNote({ content });
-    history.push("/");
+    console.log(API.get("notes", "/list"))
   } catch (e) {
       alert(e)
       console.log(e)
@@ -56,7 +56,7 @@ function createNote(note) {
           />
         </FormGroup>
         <button
-          block
+      
           type="submit"
          
           onClick={handleSubmit}
