@@ -5,6 +5,7 @@ import NewNote from "./containers/NewNote";
 import NotFound from "./containers/NotFound";
 import Login from "./containers/Login";
 import Signup from "./containers/Signup";
+import Notes from "./containers/Notes";
 import UnauthenticatedRoute from "./containers/UnauthenticatedRoute";
 import AuthenticatedRoute from "./containers/AuthenticatedRoute";
 
@@ -20,6 +21,9 @@ return (
   <AuthenticatedRoute exact path="/new-note">
     <NewNote />
   </AuthenticatedRoute>
+  <AuthenticatedRoute exact path="/notes/:id">
+  <Notes />
+</AuthenticatedRoute>
   <Route exact path="/">
     <Home />
   </Route>
