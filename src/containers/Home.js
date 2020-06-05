@@ -24,7 +24,6 @@ useEffect(
     try {
       const notes = await loadNotes();
       setNotes(notes);
-      console.log(notes)
     } catch (e) {
       console.log(e);
     }

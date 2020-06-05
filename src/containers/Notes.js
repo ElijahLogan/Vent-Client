@@ -21,14 +21,14 @@ export default function Notes() {
     async function onLoad() {
       try {
         const note = await loadNote();
+        console.log("on load called")
         const { content } = note;
 
        
 
         setContent(content);
         setNote(note);
-        console.log("this is notes")
-        console.log(note)
+        console.log(content)
       } catch (e) {
         console.log(e)
       }
@@ -45,13 +45,15 @@ function formatFilename(str) {
   return str.replace(/^\w+-/, "");
 }
 
+function handleFileChange(event) {
+}
 
 async function handleSubmit(event) {
   let attachment;
 
   event.preventDefault();
 
- 
+
 }
 
 async function handleDelete(event) {
@@ -78,19 +80,30 @@ return (
             onChange={e => setContent(e.target.value)}
           />
         </FormGroup>
-        
+        {note.attachment && (
+          <FormGroup>
+            <ControlLabel>Attachment</ControlLabel>
+            <FormControl.Static>
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                href={note.attachmentURL}
+              >
+                {formatFilename(note.attachment)}
+              </a>
+            </FormControl.Static>
+          </FormGroup>
+        )}
+        <FormGroup controlId="file">
+          {!note.attachment && <ControlLabel>Attachment</ControlLabel>}
+          <FormControl onChange={handleFileChange} type="file" />
+        </FormGroup>
         <button
-          block
-          type="submit"
-        
-          
-        >
+          type="submit">
+   
           Save
         </button>
-        <button
-        
-          onClick={handleDelete}
-        >
+        <button>
           Delete
         </button>
       </form>
