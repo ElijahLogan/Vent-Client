@@ -47,7 +47,7 @@ function renderNotesList(notes) {
         </ListGroupItem>
       </LinkContainer>
     ) : (
-      <LinkContainer key="new" to="/notes/new">
+      <LinkContainer key="new" to="/new-note">
         <ListGroupItem>
           <h4>
             <b>{"\uFF0B"}</b> Create a new note
