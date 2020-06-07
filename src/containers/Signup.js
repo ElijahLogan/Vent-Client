@@ -44,7 +44,7 @@ export default function Signup() {
       username: fields.email,
       password: fields.password,
     });
-   
+
     setNewUser(newUser);
   } catch (e) {
       console.log(e)
@@ -81,8 +81,8 @@ export default function Signup() {
         </FormGroup>
         <button
           type="submit"
-       
-onClick={validateConfirmationForm()}
+
+onClick={!validateConfirmationForm()}
         >
           Verify
         </button>
