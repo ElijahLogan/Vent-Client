@@ -1,69 +1,39 @@
-import { API } from "aws-amplify";
-import React, { useRef, useState } from "react";
-import { useHistory } from "react-router-dom";
-import { FormGroup, FormControl, ControlLabel } from "react-bootstrap";
-import config from "../config";
-import "./NewNote.css";
+import React, { useRef, useState, useEffect } from "react";
+import { useParams, useHistory } from "react-router-dom";
+import { API, Storage } from "aws-amplify";
 
-
-
-
-export default function NewNote() {
+export default function Notes() {
   const file = useRef(null);
+  const { id } = useParams();
   const history = useHistory();
+  const [note, setNote] = useState(null);
   const [content, setContent] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  
-  
 
-  function validateForm() {
-    return content.length > 0;
-  }
+  useEffect(() => {
+    function loadNote() {
+      return API.get("notes", `/notes/${id}`);
+    }
 
-  function handleFileChange(event) {
-    file.current = event.target.files[0];
-  }
-  
-  
+    async function onLoad() {
+      try {
+        const note = await loadNote();
+        const { content, attachment } = note;
 
-async function handleSubmit(event) {
-  event.preventDefault();
+        if (attachment) {
+          note.attachmentURL = await Storage.vault.get(attachment);
+        }
 
-  
-  try {
-    await createNote({ content });
-    console.log(API.get("notes", "/list"))
-  } catch (e) {
-      alert(e)
-      console.log(e)
-  }
-}
+        setContent(content);
+        setNote(note);
+      } catch (e) {
+          alert(e)
+      }
+    }
 
-function createNote(note) {
-  return API.post("notes", "/create", {
-    body: note
-  });
-}
+    onLoad();
+  }, [id]);
 
   return (
-    <div className="NewNote">
-      <form >
-        <FormGroup controlId="content">
-          <FormControl
-            value={content}
-            componentClass="textarea"
-            onChange={e => setContent(e.target.value)}
-          />
-        </FormGroup>
-        <button
-      
-          type="submit"
-         
-          onClick={handleSubmit}
-        >
-          Create
-        </button>
-      </form>
-    </div>
+    <div className="Notes"></div>
   );
 }
